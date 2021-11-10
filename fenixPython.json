@@ -1,0 +1,54 @@
+{
+    "$schema": "https://raw.githubusercontent.com/FenixTemplates/FenixTemplates/master/fenix-schema.json",
+    "author": "フシェ ジャンミシェル",
+    "repoName": "Fenix Python repository",
+    "repoUrl": "http://localhost/~foucher/fenixPython/",
+    "version": 1.0,
+    "templates": [
+        {
+            "id": "python-template",
+            "displayName": "Python template",
+            "language": "Python",
+            "img": "https://www.python.org/static/community_logos/python-powered-h.svg",
+            "description": "Python template",
+            "category": ["Other"],
+            "directories": [
+                "module"
+            ],
+            "files": {
+                "create": [
+                    "README",
+                    "module/__init__.py"
+                ],
+                "download": [
+                    {
+                        "from": "setup.py",
+                        "to": "setup.py"
+                    },
+                    {
+                        "from": "skeleton.py",
+                        "to": "module/skeleton.py"
+                    },
+                    {
+                        "from": "logger.py",
+                        "to": "module/logger.py"
+                    }
+                ],
+                "open": [
+                    "README",
+                    "module/skeleton.py",
+                    "setup.py"
+                ]
+            },
+            "command": "",
+            "environment": [
+                {
+                    "id": "author",
+                    "title": "Author",
+                    "description": "フシェ ジャンミシェル",
+                    "default": "フシェ ジャンミシェル"
+                }
+            ]
+        }
+    ]
+}
