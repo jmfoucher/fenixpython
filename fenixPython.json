@@ -18,6 +18,7 @@
             "files": {
                 "create": [
                     "README",
+                    "requirements.txt",
                     "module/__init__.py"
                 ],
                 "download": [
