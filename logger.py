@@ -104,6 +104,7 @@ def getName(filename):
         if name.startswith('/'):
             name = name[1:]
         name = name.replace('/', '.')
+        name = name.replace('.py', '')
     return name
 
 
