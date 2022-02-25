@@ -12,7 +12,7 @@
 #    format='%(asctime)s:%(levelname)s:%(name)s: %(message)s',
 #    datefmt='%y/%m/%d %H:%M:%S')
 
-loggerName = __file__.split('.')[0]
+#loggerName = __file__.split('.')[0]
 
 #from logger import createHandler
 #handler = createHandler(loggerName)
@@ -24,7 +24,8 @@ loggerName = __file__.split('.')[0]
 
 
 from logger import getLogger
-log = getLogger(loggerName)
+#log = getLogger(loggerName)
+log = getLogger(__file__)
 
 # Imports
 

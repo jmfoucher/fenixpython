@@ -1,4 +1,5 @@
 #-*- coding:utf-8 -*-
+#cython: language_level=3
 # AUTHOR:   foucher
 # FILE:     logger.py
 # ROLE:     logger
@@ -15,6 +16,7 @@ import logging
 import gzip
 import os
 import shutil
+import sys
 from logging import handlers
 
 # Logs
@@ -89,7 +91,24 @@ def createHandler(loggerName):
     return fileHandler
 
 
-def getLogger(name, level=logging.DEBUG):
+def getName(filename):
+    name = filename
+    paths = []
+    for path in sys.path:
+        if path in filename:
+            paths.append(path)
+
+    if paths:
+        minPath = min(paths)
+        name = filename.replace(minPath, '')
+        if name.startswith('/'):
+            name = name[1:]
+        name = name.replace('/', '.')
+    return name
+
+
+def getLogger(filename, level=logging.DEBUG):
+    name = getName(filename)
     handler = createHandler(name)
     log = logging.getLogger(name)
     log.addHandler(handler)
