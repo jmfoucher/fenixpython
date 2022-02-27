@@ -92,6 +92,7 @@ def createHandler(loggerName):
 
 
 def getName(filename):
+    filename = os.path.abspath(filename)
     name = filename.split('.')[0]
     paths = []
     for path in sys.path:
@@ -100,7 +101,7 @@ def getName(filename):
 
     if paths:
         minPath = min(paths)
-        name = filename.replace(minPath, '')
+        name = name.replace(minPath, '')
         if name.startswith('/'):
             name = name[1:]
         name = name.replace('/', '.')
