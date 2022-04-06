@@ -114,10 +114,18 @@ def getLogger(filename, level=logging.DEBUG):
     handler = createHandler(name)
     log = logging.getLogger(name)
     log.addHandler(handler)
-    streamHandler = logging.StreamHandler()
-    streamHandler.setFormatter(formatter)
-    streamHandler.setLevel(level)
-    log.addHandler(streamHandler)
+
+    containsStreamHandler = False
+    for handler in logging.root.handlers:
+        if isinstance(handler, logging.StreamHandler):
+            containsStreamHandler = True
+            break
+    if not containsStreamHandler:
+        streamHandler = logging.StreamHandler()
+        streamHandler.setFormatter(formatter)
+        streamHandler.setLevel(level)
+        log.addHandler(streamHandler)
+
     logging.root.setLevel(level)
     return log
 

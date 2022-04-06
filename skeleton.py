@@ -92,7 +92,7 @@ Example: -a key1=value
 
 if __name__ == "__main__":
     log.info("START...")
-    log.debug("Debug log message")
+    #log.debug("Debug log message")
     #log.debug("pyPiqDetection.version = %.1f" % pd.version)
     main()
     log.info("...END.")
