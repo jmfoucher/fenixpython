@@ -110,22 +110,26 @@ def getName(filename):
     return name
 
 
+streamLoggerAdded = False
+
 def getLogger(filename, level=logging.DEBUG):
     name = getName(filename)
     handler = createHandler(name)
     log = logging.getLogger(name)
     log.addHandler(handler)
 
+    global streamLoggerAdded
     containsStreamHandler = False
     for handler in logging.root.handlers:
-        if isinstance(handler, logging.StreamHandler):
+        if isinstance(handler, logging.StreamHandler) and not isinstance(handler, TimedRotatingFileHandler):
             containsStreamHandler = True
             break
-    if not containsStreamHandler:
+    if not containsStreamHandler and not streamLoggerAdded:
         streamHandler = logging.StreamHandler()
         streamHandler.setFormatter(formatter)
         streamHandler.setLevel(level)
         log.addHandler(streamHandler)
+        streamLoggerAdded = True
 
     logging.root.setLevel(level)
     return log
