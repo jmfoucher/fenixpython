@@ -38,14 +38,16 @@ class TimedRotatingFileHandler(handlers.TimedRotatingFileHandler):
 
 
     def __init__(self, filename="", when="midnight", interval=1,
-                 backupCount=14
+                 backupCount=14,
+                 encoding='utf-8'
                  ):
         #print("filename = " + filename)
         super(TimedRotatingFileHandler, self).__init__(
             filename=filename,
             when=when,
             interval=int(interval),
-            backupCount=int(backupCount)
+            backupCount=int(backupCount),
+            encoding=encoding,
         )
 
 
@@ -112,6 +114,14 @@ def getName(filename):
 
 streamLoggerAdded = False
 
+class UTF8ConsoleHandler(logging.StreamHandler):
+    def emit(self, record):
+        msg = self.format(record) + '\n'
+        stream = self.stream
+        # Write the message as UTF-8 and ignore any characters that can't be encoded
+        stream.buffer.write(msg.encode('utf-8', errors='ignore'))
+        stream.flush()
+
 def getLogger(filename, level=logging.DEBUG):
     name = getName(filename)
     handler = createHandler(name)
@@ -125,7 +135,8 @@ def getLogger(filename, level=logging.DEBUG):
             containsStreamHandler = True
             break
     if not containsStreamHandler and not streamLoggerAdded:
-        streamHandler = logging.StreamHandler()
+        #streamHandler = logging.StreamHandler()
+        streamHandler = UTF8ConsoleHandler()
         streamHandler.setFormatter(formatter)
         streamHandler.setLevel(level)
         log.addHandler(streamHandler)
