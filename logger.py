@@ -69,6 +69,11 @@ class TimedRotatingFileHandler(handlers.TimedRotatingFileHandler):
 
 def createHandler(loggerName):
 
+    if loggerName.startswith('\\'):
+        loggerName = loggerName[1:]
+    if '\\' in loggerName:
+        loggerName = loggerName.replace('\\', '.')
+
     dirName, baseName = os.path.split(loggerName)
     dirNameBackup = dirName
     dirName = os.path.join(dirName, 'logs')
@@ -140,7 +145,7 @@ def getLogger(filename, level=logging.DEBUG):
         streamHandler.setFormatter(formatter)
         streamHandler.setLevel(level)
         log.addHandler(streamHandler)
-        streamLoggerAdded = True
+        #streamLoggerAdded = True
 
     logging.root.setLevel(level)
     return log
